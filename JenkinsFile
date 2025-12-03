@@ -1,36 +1,27 @@
 pipeline{
-    agent any{
+    agent any
+    stages{
         stage ("Build Docker Image"){
             steps{
                 echo "Build Docker Image"
-                bat "Javac factorial.Java ."
+                bat "Javac factorial.Java."
             }
         }
-            stage('Run') 
-            {
-                steps{
-                    bat 'Java Factorial.Java' 
-                } 
+        
+        stage("push Docker Iamge to Docker Hub"){
+            steps {
+                echo "push Docker Image to docker hub"
+                
             }
-            stage('Test') 
-            {
-                steps{
-                    bat 'Java TestFactorial.java' 
-                } 
-            } 
-            stage('Package JAR') 
-            {
-                steps{
-                    bat 'Java testfactorial.Java,Manifest.txt,Factorial.Class' 
-                } 
-            } 
-            stage('Assertion JAR') 
-            {
-                steps{
-                    bat 'Java Factorial.Java' 
-                } 
-            } 
         }
-    } 
+        
+    post{
+        success{
+            echo 'Pipeline completed scucessfull!'
 
-
+        }
+        failure{
+            echo "Pipeline failed.Please check the logs."
+        }
+    }
+}
