@@ -16,10 +16,21 @@ pipeline{
             stage('Test') 
             {
                 steps{
-                    bat 'Java testfactorial.Java' 
+                    bat 'Java TestFactorial.java' 
                 } 
             } 
-            
+            stage('Package JAR') 
+            {
+                steps{
+                    bat 'Java testfactorial.Java,Manifest.txt,Factorial.Class' 
+                } 
+            } 
+            stage('Assertion JAR') 
+            {
+                steps{
+                    bat 'Java Factorial.Java' 
+                } 
+            } 
         }
     }
 }
